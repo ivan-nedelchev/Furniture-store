@@ -1,3 +1,6 @@
+
+import {loginUser} from "../requests.js"
+
 export let showLogin = (ctx) => {
 
     let loginView = () => ctx.utils.html`
@@ -27,7 +30,9 @@ export let showLogin = (ctx) => {
     ctx.utils.render(loginView(), ctx.divContainer) 
 }
 
-function login(event) {
+async function login(event) {
+    let formData = new FormData(event.target)
+
     event.preventDefault()
-    console.log("LOGGING IN");
+    await loginUser(formData.get("email"), formData.get("password"))
 }

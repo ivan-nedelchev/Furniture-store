@@ -11,7 +11,7 @@ let paths = {
 }
 
 export async function loginUser(email, password) {
-    let result = api.post(email, password);
+    let result = await api.post(paths.login, {email, password});
     return result;
 }
 

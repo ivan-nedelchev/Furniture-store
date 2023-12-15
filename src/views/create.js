@@ -1,9 +1,7 @@
-import { page, html, render } from "../util.js";
-
 
 export let showCreate = (ctx) => {
-    console.log(ctx.wtf);
-    let createView = () => html`
+    console.log("WTF");
+    let createView = () => ctx.utils.html`
     <div class="row space-top">
         <div class="col-md-12">
             <h1>Create New Furniture</h1>
@@ -47,6 +45,6 @@ export let showCreate = (ctx) => {
             </div>
         </div>
     </form>`;
-    console.log(ctx);
-    render(createView(), ctx.divContainer)
+
+ctx.utils.render(createView(), ctx.divContainer)
 }

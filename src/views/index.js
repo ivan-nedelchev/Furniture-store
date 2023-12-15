@@ -1,9 +1,8 @@
-import {page, html, render} from "../util.js";
 let divContainer = document.querySelector("div.container");
 
 export let showIndex = (ctx) => {
-    console.log(ctx)
-    let indexView = () => html`
+
+    let indexView = () => ctx.utils.html`
         <div class="row space-top">
             <div class="col-md-12">
                 <h1>Welcome to Furniture System</h1>
@@ -55,7 +54,7 @@ export let showIndex = (ctx) => {
             </div>
         </div>
     `;
-    render(indexView(), divContainer)
+ctx.utils.render(indexView(), divContainer)
 
     
 }

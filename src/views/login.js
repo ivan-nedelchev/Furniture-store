@@ -1,16 +1,13 @@
-import {page, html, render} from "../util.js";
-let divContainer = document.querySelector("div.container");
-
 export let showLogin = (ctx) => {
-    console.log(ctx.wtf);
-    let loginView = () => html`
+
+    let loginView = () => ctx.utils.html`
         <div class="row space-top">
             <div class="col-md-12">
                 <h1>Login User</h1>
                 <p>Please fill all fields.</p>
             </div>
         </div>
-        <form>
+        <form @submit=${login} >
             <div class="row space-top">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -26,6 +23,11 @@ export let showLogin = (ctx) => {
             </div>
         </form>
     `;
-    console.log(ctx);
-    render(loginView(), divContainer) 
+
+    ctx.utils.render(loginView(), ctx.divContainer) 
+}
+
+function login(event) {
+    event.preventDefault()
+    console.log("LOGGING IN");
 }

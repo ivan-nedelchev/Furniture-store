@@ -1,8 +1,10 @@
 
-import {loginUser} from "../requests.js"
+import { loginUser, updateNav } from "../requests.js"
+import { saveLogin } from "../requests.js";
+let context;
 
 export let showLogin = (ctx) => {
-
+    context = ctx;
     let loginView = () => ctx.utils.html`
         <div class="row space-top">
             <div class="col-md-12">
@@ -27,12 +29,16 @@ export let showLogin = (ctx) => {
         </form>
     `;
 
-    ctx.utils.render(loginView(), ctx.divContainer) 
+    ctx.utils.render(loginView(), ctx.divContainer);
 }
 
 async function login(event) {
-    let formData = new FormData(event.target)
-
-    event.preventDefault()
-    await loginUser(formData.get("email"), formData.get("password"))
+    event.preventDefault();
+    let formData = new FormData(event.target);
+    let email = formData.get("email");
+    let password = formData.get("password");
+    let loginInfo = await loginUser(email, password);
+    saveLogin(loginInfo)
+    context.utils.page('/')
+    updateNav()
 }

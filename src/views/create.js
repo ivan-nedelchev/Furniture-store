@@ -1,6 +1,7 @@
-
+import { postItem } from "../requests.js";
+import page from "../../node_modules/page/page.mjs";
 export let showCreate = (ctx) => {
-    console.log("WTF");
+
     let createView = () => ctx.utils.html`
     <div class="row space-top">
         <div class="col-md-12">
@@ -8,7 +9,7 @@ export let showCreate = (ctx) => {
             <p>Please fill all fields.</p>
         </div>
     </div>
-    <form>
+    <form @submit=${createItem}>
         <div class="row space-top">
             <div class="col-md-4">
                 <div class="form-group">
@@ -46,5 +47,14 @@ export let showCreate = (ctx) => {
         </div>
     </form>`;
 
-ctx.utils.render(createView(), ctx.divContainer)
+    ctx.utils.render(createView(), ctx.divContainer)
+
+}
+
+async function createItem(event) {
+    event.preventDefault();
+    let formData = new FormData(event.target);
+    let data = Object.fromEntries(formData.entries());
+    await postItem(data);
+    page("/");
 }

@@ -1,22 +1,33 @@
 let url = "http://localhost:3030";
 
 async function request(method, path, data) {
-    let options;
+    let options = {};
+    let response;
+    let userInfo = JSON.parse(localStorage.getItem('user'));
+    
+
     if(data) {
         options = {
             method,
             headers : {
-            "Content-type" : "application/json"
+            "Content-type" : "application/json",
             },
             body : JSON.stringify(data)
         }
+        if(userInfo) {
+            options.headers["X-Authorization"] = userInfo.accessToken;
+        }
+        response = await fetch(url + path, options);
     } else {
+        response = await fetch(url + path, options);
         
     }
-    let response = await fetch(url + path, options);
-    let responseObj = await response.json()
+   
+    if(response.status != "204") {
+        return response.json()
+    }
 
-    return responseObj;
+
 }
 
 let get = (path) => request("GET", path);
@@ -27,6 +38,6 @@ let post = (path, data) => request("POST", path, data);
 export {
     get,
     put,
-    del as delete,
+    del,
     post
 }

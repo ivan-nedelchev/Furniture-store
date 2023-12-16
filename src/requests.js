@@ -14,10 +14,8 @@ let paths = {
 
 
 export async function deleteItem(id) {
-    
-    let response = await api.del(paths.getDetails + id)
-    console.log(response);
-    return response
+    let response = await api.del(paths.getDetails + id);
+    return response;
 }
 
 

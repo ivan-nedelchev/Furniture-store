@@ -19,6 +19,11 @@ async function request(method, path, data) {
         }
         response = await fetch(url + path, options);
     } else {
+        if(userInfo) {
+            options.headers = {}
+            options.headers["X-Authorization"] = userInfo.accessToken;
+        }
+        options.method = method
         response = await fetch(url + path, options);
         
     }

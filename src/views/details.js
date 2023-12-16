@@ -41,5 +41,5 @@ let detailsView = (item) => context.utils.html`
 async function deleteItemFunction(event,ctx) {
     event.preventDefault()
     await deleteItem(ctx.params.id)
-    context.utils.page('/my-furniture')
+    context.utils.page('/')
 }
